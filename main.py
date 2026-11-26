@@ -1,34 +1,58 @@
 #!/usr/bin/env python3
-"""Program penyalin entry V2 news-image-20261125 — versi 2.
+"""Program entry: menyalin entry.png yang sudah jadi ke folder keluaran.
 
-Menyalin entry.png (gambar final, sudah dirakit di sesi build) ke folder
-keluaran penilai. Pustaka standar saja (os + shutil + sys): tanpa biner sistem,
-font sistem, pustaka pihak ketiga, jaringan, subprocess, atau pemeriksaan
-hash sendiri.
+Memakai pustaka standar saja, tanpa jaringan dan tanpa font.
 """
 import os
 import shutil
 import sys
 
-ENTRY = "entry.png"
+PNG_SIGNATURE = bytes([137, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
+
+
+def fail(message):
+    print("GALAT: " + message, file=sys.stderr)
+    sys.exit(1)
 
 
 def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     here = os.path.dirname(os.path.abspath(__file__))
-    src = os.path.join(here, ENTRY)
-    if not os.path.isfile(src):
-        print(
-            f"error: entry final tidak ditemukan: {src} "
-            "(entry.png harus berada di samping main.py)",
-            file=sys.stderr,
+    name = "entry.png"
+    src = os.path.join(here, name)
+    if not os.path.exists(src):
+        fail(
+            "berkas %s tidak ditemukan di %s (folder main.py: %s). "
+            "Jalankan program build di folder itu (python3 compose.py) "
+            "atau salin entry.png ke folder itu, "
+            "lalu jalankan ulang main.py." % (name, src, here)
         )
-        raise SystemExit(1)
-    os.makedirs(out_dir, exist_ok=True)
-    dst = os.path.join(out_dir, ENTRY)
-    shutil.copyfile(src, dst)
-    os.chmod(dst, 0o644)
-    print(f"disalin: {dst}")
+    with open(src, "rb") as f:
+        head = f.read(8)
+    if head != PNG_SIGNATURE:
+        fail(
+            "berkas %s bukan PNG yang utuh (8 byte pertama tidak cocok). "
+            "Tanda tangan PNG yang diharapkan: %s. "
+            "Render ulang entry.png dari program build di folder yang sama "
+            "sampai file-nya PNG utuh, lalu jalankan ulang main.py."
+            % (src, PNG_SIGNATURE.hex())
+        )
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
+    try:
+        os.makedirs(out_dir, exist_ok=True)
+    except OSError as e:
+        fail("tidak bisa membuat folder keluaran %s: %s" % (out_dir, e))
+    dst = os.path.join(out_dir, name)
+    try:
+        shutil.copyfile(src, dst)
+        os.chmod(dst, 0o644)
+    except OSError as e:
+        fail("tidak bisa menyalin %s ke %s: %s" % (src, dst, e))
+    if os.path.getsize(dst) != os.path.getsize(src):
+        fail(
+            "ukuran salinan %s (%d byte) tidak sama dengan sumber %s (%d byte)."
+            % (dst, os.path.getsize(dst), src, os.path.getsize(src))
+        )
+    print("Berhasil menyalin %s ke %s" % (src, dst))
 
 
 if __name__ == "__main__":
