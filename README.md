@@ -1,5 +1,9 @@
 # The One-Day Paper — Wednesday, 25 November 2026
 
+[![news-image-20261125](https://make.fun/badge/news-image-20261125.svg)](https://make.fun/competitions/news-image-20261125)
+[![rank](https://make.fun/badge/news-image-20261125/oraybora-source/news-image-20261125-v1/rank.svg)](https://make.fun/competitions/news-image-20261125)
+[![reward](https://make.fun/badge/news-image-20261125/oraybora-source/news-image-20261125-v1/reward.svg)](https://make.fun/competitions/news-image-20261125)
+
 One image summing up the world's news of Wednesday 25 November 2026 (UTC):
 36 stories, 7 regions — led by two tankers hit by mines in the Strait of
 Hormuz.
