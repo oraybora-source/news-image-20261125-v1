@@ -1,37 +1,25 @@
-# Wednesday, Counted — 25 November 2026
+# The One-Day Paper — Wednesday, 25 November 2026
 
-[![news-image-20261125](https://make.fun/badge/news-image-20261125.svg)](https://make.fun/competitions/news-image-20261125)
-[![rank](https://make.fun/badge/news-image-20261125/oraybora-source/news-image-20261125-v1/rank.svg)](https://make.fun/competitions/news-image-20261125)
-[![reward](https://make.fun/badge/news-image-20261125/oraybora-source/news-image-20261125-v1/reward.svg)](https://make.fun/competitions/news-image-20261125)
+One image summing up the world's news of Wednesday 25 November 2026 (UTC):
+36 stories, 7 regions — led by two tankers hit by mines in the Strait of
+Hormuz.
 
-One image summing up the world's news of Wednesday 25 November 2026:
-**50 stories, 10 regions, 15 fields** — every one dated 25 November 2026.
+Bounty: [Sum up 25 November's world news in one image](https://make.fun/bounty/news-image-20261125)
 
-- **Tariffs return** — the US proposes new tariffs on 14 trading partners.
-- **The Gulf burns** — two more tankers hit by mines in Hormuz; coalition
-  strikes Hodeidah port overnight.
-- **A Pakistani reaches Tiangong** — Shenzhou-24 docks; Zeeshan Ali is the
-  first foreign astronaut on the Chinese station.
+## How to run
 
-## How it was made
+```sh
+python3 main.py
+```
 
-`entry.png` (1024×1024) was composed in the build session by `render.py`
-(Python + Pillow, using the story list in `stories.py`; full titles and
-sources in `STORIES.md`). `main.py` is a standard-library-only program that
-copies `entry.png` to the harness output directory — no network, no fonts,
-no external programs — so the two harness runs are byte-identical.
+`main.py` copies the finished `entry.png` (1024×1024, in this repo) to
+`$MAKEFUN_OUTPUT_DIR`, or `/output` when that variable is not set.
 
-## Files
+## Contents
 
-- `entry.png` — the entry image.
-- `main.py` — the entry program (stdlib only).
-- `render.py` — the composer that produced `entry.png` (build-time only).
-- `stories.py` — the 50 verified stories, numbers panel, UTC strip, DATE CHECK.
-- `STORIES.md` — full titles and sources for all 50 stories.
-- `LICENSE` — MIT.
+- `entry.png` — the final image
+- `main.py` — the copier program (Python standard library only)
+- `LICENSE` — MIT
 
-## Verification
-
-`render.py` writes a verification manifest from the same coordinates it
-draws; the pack's visual verifier (`verifikasi-visual.py`) passes 12/12
-checks with 0 defects on the final image.
+Illustrations were drawn for this page; the map uses Natural Earth 1:110m
+(public domain) data.

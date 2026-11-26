@@ -1,27 +1,35 @@
-"""Entry program for make.fun news-image-20261125.
+#!/usr/bin/env python3
+"""Program penyalin entry V2 news-image-20261125 — versi 2.
 
-Copies the pre-rendered entry.png to the output directory required by the
-harness. Standard library only: no network, no fonts, no external programs.
-
-The image was composed in the build session (see render.py) and shipped in
-this repository as entry.png. This program only copies it, so the two
-harness runs are byte-identical by construction.
+Menyalin entry.png (gambar final, sudah dirakit di sesi build) ke folder
+keluaran penilai. Pustaka standar saja (os + shutil + sys): tanpa biner sistem,
+font sistem, pustaka pihak ketiga, jaringan, subprocess, atau pemeriksaan
+hash sendiri.
 """
-
 import os
 import shutil
 import sys
 
+ENTRY = "entry.png"
 
-def main() -> int:
+
+def main():
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     here = os.path.dirname(os.path.abspath(__file__))
-    src = os.path.join(here, "entry.png")
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/tmp"
+    src = os.path.join(here, ENTRY)
+    if not os.path.isfile(src):
+        print(
+            f"error: entry final tidak ditemukan: {src} "
+            "(entry.png harus berada di samping main.py)",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
     os.makedirs(out_dir, exist_ok=True)
-    dst = os.path.join(out_dir, "entry.png")
+    dst = os.path.join(out_dir, ENTRY)
     shutil.copyfile(src, dst)
-    return 0
+    os.chmod(dst, 0o644)
+    print(f"disalin: {dst}")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
