@@ -623,8 +623,16 @@ def render():
     sub = "Tariffs return, the Gulf burns, and a Pakistani reaches Tiangong."
     count = ("50 STORIES · 10 REGIONS · 15 FIELDS · "
              "EVERY ONE DATED WEDNESDAY 25 NOVEMBER 2026")
+    # B-ORI-1: masthead lama "THE WORLD, IN ONE DAY" mereproduksi masthead
+    # yang dilarang (referensi/contoh-news-image/README.md:115-118) dan
+    # dipakai rank 1 ni21/ni22/ni25. Pengganti "WEDNESDAY, COUNTED"
+    # (kandidat K11 konsep.md) — nol kata bersama dengan masthead larangan.
+    # Lebar masthead diukur SEBELUM digambar: harus muat di baris yang sama
+    # dengan PRESS TIME (kanan) tanpa tumpang tindih dan tanpa terpotong.
+    assert (F["sans_b"](12).getlength("WEDNESDAY, COUNTED")
+            + f_press.getlength(press) + 32) <= 992, "masthead tidak muat"
     baris_masthead = [
-        ("THE WORLD, IN ONE DAY", F["sans_b"](12), INK),
+        ("WEDNESDAY, COUNTED", F["sans_b"](12), INK),
         ("Wednesday 25 November 2026", F["serif_b"](52), INK),
         (sub, F["serif_i"](16), RED),
         (count, F["sans_b"](12), INK),
@@ -635,7 +643,7 @@ def render():
         d.text((16, y - bb[1]), teks_line, font=fnt, fill=warna)
         y += (bb[3] - bb[1]) + 4
     add_el("masthead", "masthead", [16, 12, 992, 102],
-           teks=("THE WORLD, IN ONE DAY / Wednesday 25 November 2026 / " + sub +
+           teks=("WEDNESDAY, COUNTED / Wednesday 25 November 2026 / " + sub +
                  " / " + count + " / " + press),
            ukuran_font=52,
            lebar_terukur=max(F["serif_b"](52).getlength("Wednesday 25 November 2026"),

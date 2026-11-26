@@ -1,4 +1,4 @@
-# The World, in One Day — 25 November 2026
+# Wednesday, Counted — 25 November 2026
 
 [![news-image-20261125](https://make.fun/badge/news-image-20261125.svg)](https://make.fun/competitions/news-image-20261125)
 [![rank](https://make.fun/badge/news-image-20261125/oraybora-source/news-image-20261125-v1/rank.svg)](https://make.fun/competitions/news-image-20261125)
